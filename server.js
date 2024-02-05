@@ -50,7 +50,7 @@ app.use(express_1.default.static(path_1.default.join(__dirname, "app/public")));
 app.post('/update', async (req, res) => {
     if (process.env.NODE_ENV?.startsWith('DEV'))
         return;
-    await (0, child_process_1.exec)('git pull');
+    (0, child_process_1.execSync)('git pull');
     res.json({ update: 'script updated successfuly' });
 });
 (0, routes_1.mountedRoutes)(app);
