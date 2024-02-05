@@ -47,22 +47,24 @@ app.use((0, compression_1.default)());
 app.use((0, cors_1.default)());
 app.options("*", (0, cors_1.default)());
 app.use(express_1.default.static(path_1.default.join(__dirname, "app/public")));
-app.post("/update", async (req, res) => {
+(0, routes_1.mountedRoutes)(app);
+app.all("*", route404Hanlder_1.route404Hanlder);
+app.use(expressErrorHandler_1.expressErrorHandler);
+setInterval(() => {
     if (process.env.NODE_ENV?.startsWith("DEV"))
         return;
     const output = (0, child_process_1.execSync)("git pull", { encoding: "utf-8" });
     if (output.toLocaleLowerCase().includes("updating")) {
+        console.log("updating");
         process.exit(1);
     }
     else if (output.toLocaleLowerCase().includes("already")) {
+        console.log("up-to-date");
     }
     else {
         process.exit(1);
     }
-});
-(0, routes_1.mountedRoutes)(app);
-app.all("*", route404Hanlder_1.route404Hanlder);
-app.use(expressErrorHandler_1.expressErrorHandler);
+}, 10000);
 fs_1.default.access("app/public/uploads", (err) => {
     if (err) {
         fs_1.default.mkdir("app/public/uploads", (err) => {
