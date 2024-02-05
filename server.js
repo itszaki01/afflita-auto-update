@@ -37,7 +37,7 @@ const expressErrorHandler_1 = require("./app/middlewares/expressErrorHandler");
 const compression_1 = __importDefault(require("compression"));
 const fs_1 = __importDefault(require("fs"));
 const routes_1 = require("./app/routes");
-const gitPullOrClone = __importStar(require("git-pull-or-clone"));
+const git_pull_or_clone_1 = __importDefault(require("git-pull-or-clone"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 (0, connectDB_1.connectDb)();
@@ -50,7 +50,7 @@ app.use(express_1.default.static(path_1.default.join(__dirname, "app/public")));
 app.post('/update', (req, res) => {
     if (process.env.NODE_ENV?.startsWith('DEV'))
         return;
-    gitPullOrClone('git@github.com:itszaki01/afflita-auto-update.git', './', (err) => {
+    (0, git_pull_or_clone_1.default)('git@github.com:itszaki01/afflita-auto-update.git', './', (err) => {
         if (err)
             throw err;
         console.log('SUCCESS!');
