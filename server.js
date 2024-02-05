@@ -53,7 +53,7 @@ app.post('/update', async (req, res) => {
     await (0, child_process_1.exec)('git pull');
 });
 (0, routes_1.mountedRoutes)(app);
-app.all("*", route404Hanlder_1.route404Hanlder);
+app.all("*", route404Hanlder_1.route404Hanlder)
 app.use(expressErrorHandler_1.expressErrorHandler);
 fs_1.default.access('app/public/uploads', (err) => {
     if (err) {
