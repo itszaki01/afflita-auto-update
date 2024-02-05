@@ -51,7 +51,7 @@ app.post("/update", async (req, res) => {
     if (process.env.NODE_ENV?.startsWith("DEV"))
         return;
     const output = (0, child_process_1.execSync)('git pull', { encoding: 'utf-8' });
-    console.log(`pull output : ${output}`);
+    console.log(`pull output : ${output} ==== Finish`);
     res.json({ update: "script updated successfuly" });
     process.exit(1);
 });
