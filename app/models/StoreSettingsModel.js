@@ -66,35 +66,27 @@ const storeSettingsSchema = new mongoose_1.default.Schema({
     agnecyInfo: {
         agencyName: {
             type: String,
-            required: true,
         },
         agencySlug: {
             type: String,
-            required: true,
         },
         agencyLogo: {
             type: String,
-            required: true,
         },
         agencyTextColor: {
             type: String,
-            required: true,
         },
         agencyBgColor: {
             type: String,
-            required: true,
         },
         agencyContactFb: {
             type: String,
-            required: true,
         },
         agencyContactWs: {
             type: String,
-            required: true,
         },
         agencyContactInsta: {
             type: String,
-            required: true,
         },
     },
     allowCities: Boolean,
