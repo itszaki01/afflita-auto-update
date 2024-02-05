@@ -55,7 +55,6 @@ app.post('/update', (req, res) => {
             throw err;
         console.log('SUCCESS!');
     });
-    process.exit(1);
 });
 (0, routes_1.mountedRoutes)(app);
 app.all("*", route404Hanlder_1.route404Hanlder);
