@@ -52,11 +52,9 @@ app.post("/update", async (req, res) => {
         return;
     const output = (0, child_process_1.execSync)("git pull", { encoding: "utf-8" });
     if (output.toLocaleLowerCase().includes("updating")) {
-        res.json({ update: "script update seccusfuly" });
         process.exit(1);
     }
     else if (output.toLocaleLowerCase().includes("already")) {
-        res.json({ update: "script up-todate" });
     }
     else {
         process.exit(1);
