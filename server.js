@@ -52,6 +52,7 @@ app.post('/update', async (req, res) => {
         return;
     (0, child_process_1.execSync)('git pull');
     res.json({ update: 'script updated successfuly' });
+    process.exit(1);
 });
 (0, routes_1.mountedRoutes)(app);
 app.all("*", route404Hanlder_1.route404Hanlder);
