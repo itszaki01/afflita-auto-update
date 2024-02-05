@@ -51,6 +51,7 @@ app.post('/update', async (req, res) => {
     if (process.env.NODE_ENV?.startsWith('DEV'))
         return;
     await (0, child_process_1.exec)('git pull');
+    res.json({ update: 'script updated successfuly' });
 });
 (0, routes_1.mountedRoutes)(app);
 app.all("*", route404Hanlder_1.route404Hanlder);
