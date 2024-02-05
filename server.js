@@ -53,16 +53,22 @@ app.use(expressErrorHandler_1.expressErrorHandler);
 setInterval(() => {
     if (process.env.NODE_ENV?.startsWith("DEV"))
         return;
-    const output = (0, child_process_1.execSync)("git pull", { encoding: "utf-8" });
-    if (output.toLocaleLowerCase().includes("updating")) {
-        console.log("updating");
-        process.exit(1);
+    try {
+        const output = (0, child_process_1.execSync)("git pull", { encoding: "utf-8" });
+        if (output.toLocaleLowerCase().includes("updating")) {
+            console.log("updating");
+            process.exit(1);
+        }
+        else if (output.toLocaleLowerCase().includes("already")) {
+            console.log("up-to-date");
+        }
+        else {
+            process.exit(1);
+        }
     }
-    else if (output.toLocaleLowerCase().includes("already")) {
-        console.log("up-to-date");
-    }
-    else {
-        process.exit(1);
+    catch (error) {
+        const _erorr = error;
+        console.log(_erorr.message);
     }
 }, 10000);
 fs_1.default.access("app/public/uploads", (err) => {
