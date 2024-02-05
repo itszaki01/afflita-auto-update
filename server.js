@@ -37,7 +37,7 @@ const expressErrorHandler_1 = require("./app/middlewares/expressErrorHandler");
 const compression_1 = __importDefault(require("compression"));
 const fs_1 = __importDefault(require("fs"));
 const routes_1 = require("./app/routes");
-const git_pull_or_clone_1 = __importDefault(require("git-pull-or-clone"));
+const child_process_1 = require("child_process");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 (0, connectDB_1.connectDb)();
@@ -47,14 +47,10 @@ app.use((0, compression_1.default)());
 app.use((0, cors_1.default)());
 app.options("*", (0, cors_1.default)());
 app.use(express_1.default.static(path_1.default.join(__dirname, "app/public")));
-app.post('/update', (req, res) => {
+app.post('/update', async (req, res) => {
     if (process.env.NODE_ENV?.startsWith('DEV'))
         return;
-    (0, git_pull_or_clone_1.default)('git@github.com:itszaki01/afflita-auto-update.git', './', (err) => {
-        if (err)
-            throw err;
-        console.log('SUCCESS!');
-    });
+    await (0, child_process_1.exec)('git pull');
 });
 (0, routes_1.mountedRoutes)(app);
 app.all("*", route404Hanlder_1.route404Hanlder);
